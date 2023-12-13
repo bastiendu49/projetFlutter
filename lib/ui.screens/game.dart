@@ -16,13 +16,15 @@ class GameMaps extends StatefulWidget {
 }
 
 class _GameMapsState extends State<GameMaps> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   static final List<String> _regions = ['Europe', 'Asia', 'North America', 'South America', 'Africa', 'Oceania', 'World'];
   late Timer _timer;
   int _secondsElapsed = 0;
-  var score = 0;
+  int score = 0;
   double latCenterMap = 45.72434685142984;
   double longCenterMap = 21.574331371307363;
   double zoom = 3.0;
+  bool isGamePaused = false;
 
   @override
   void initState() {
@@ -46,11 +48,35 @@ class _GameMapsState extends State<GameMaps> {
     }
   }
 
+  void resumeTimer() {
+    if (!_timer.isActive) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+        setState(() {
+          _secondsElapsed++;
+        });
+      });
+    }
+  }
+
+
   String _formattedTime() {
     Duration duration = Duration(seconds: _secondsElapsed);
     return '${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
+  void handlePauseMenu() {
+    _scaffoldKey.currentState?.openDrawer();
+    isGamePaused = true;
+    pauseTimer();
+    const Column(
+      children: <Widget>[
+        Text('data',
+            style: TextStyle(
+              color: Colors.blueGrey
+            ),)
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +114,7 @@ class _GameMapsState extends State<GameMaps> {
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Center(
             child: Row(
@@ -103,12 +130,12 @@ class _GameMapsState extends State<GameMaps> {
             )
         ) ,
         leading: IconButton(
-          onPressed: () {  },
+          onPressed: handlePauseMenu,
           icon: const Icon(Icons.menu_outlined)),
       ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(setCenter().first, setCenter().last), // Set the initial map center
+          center: LatLng(setCenter().first, setCenter().last),
           zoom: regionSelected.toString().compareTo('World') == 0 ? 1.0 : zoom,
         ),
         layers: [
@@ -120,6 +147,70 @@ class _GameMapsState extends State<GameMaps> {
           ),
         ],
       ),
+      drawer: isGamePaused ? Drawer(
+        child: Column(
+          children: <Widget>[
+            const SizedBox(height: 40),
+            const Padding(
+              padding: EdgeInsets.only(left: 90),
+              child: Row(
+                children: [
+                  Icon(Icons.pause_outlined, size: 30,),
+                  SizedBox(width: 10),
+                  Text('Pause',
+                        style: TextStyle(
+                            fontSize: 30
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            /*
+            TextButton(
+                onPressed: (){},
+                child: ElevatedButton(
+                  onPressed: () { },
+                  child: const Text('Restart'),
+                )
+            ),*/
+            const Divider(),
+            ListTile(
+              title: const Text('Resume',
+                style: TextStyle(
+                    fontSize: 20
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                resumeTimer();
+              },
+              trailing: const Icon(Icons.play_arrow_outlined),
+            ),
+            ListTile(
+              title: const Text('Restart',
+                style: TextStyle(
+                    fontSize: 20
+                ),
+              ),
+              onTap: () {
+              },
+              trailing: const Icon(Icons.restart_alt_outlined),
+            ),
+            ListTile(
+              title: const Text('Quit',
+                style: TextStyle(
+                    fontSize: 20
+                ),
+              ),
+              onTap: () {
+
+              },
+              trailing: const Icon(Icons.exit_to_app_outlined),
+            ),
+          ],
+        ),
+      )
+      : null,
     );
   }
 }
