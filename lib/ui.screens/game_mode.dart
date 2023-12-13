@@ -8,7 +8,7 @@ class GameMode extends StatelessWidget {
     required this.onDestinationSelected,
   }) : super(key: key);
 
-  static final List<String> _regions = ['Europe', 'Asia', 'North America', 'Mid & South America', 'Africa', 'Oceania', 'World'];
+  static final List<String> _regions = ['Europe', 'Asia', 'North America', 'South America', 'Africa', 'Oceania', 'World'];
   final int currentPageIndex;
   final Null Function(int index) onDestinationSelected;
 
