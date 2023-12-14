@@ -3,14 +3,10 @@ import 'package:jeu_geo/router.dart';
 
 class GameMode extends StatelessWidget {
   GameMode({
-    Key? key,
-    required this.currentPageIndex,
-    required this.onDestinationSelected,
+    Key? key
   }) : super(key: key);
 
   static final List<String> _regions = ['Europe', 'Asia', 'North America', 'South America', 'Africa', 'Oceania', 'World'];
-  final int currentPageIndex;
-  final Null Function(int index) onDestinationSelected;
 
   final TextEditingController _usernameController = TextEditingController();
 
@@ -22,8 +18,9 @@ class GameMode extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Start playing'),
+        title: const Padding(
+          padding: EdgeInsets.only(right: 50),
+          child: Center(child: Text('Start playing')),
         ),
       ),
       body: Column(

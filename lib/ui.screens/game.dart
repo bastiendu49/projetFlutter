@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../router.dart';
+
 
 class GameMaps extends StatefulWidget {
 
@@ -44,12 +46,28 @@ class _GameMapsState extends State<GameMaps> {
 
   void pauseTimer() {
     if (_timer.isActive) {
+      isGamePaused = true;
       _timer.cancel();
     }
   }
 
   void resumeTimer() {
     if (!_timer.isActive) {
+      isGamePaused = false;
+      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+        setState(() {
+          _secondsElapsed++;
+        });
+      });
+    }
+  }
+
+  void resetTimer() {
+    setState(() {
+      _secondsElapsed = 0;
+    });
+    if (_timer.isActive) {
+      _timer.cancel();
       _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
         setState(() {
           _secondsElapsed++;
@@ -59,23 +77,22 @@ class _GameMapsState extends State<GameMaps> {
   }
 
 
+
   String _formattedTime() {
     Duration duration = Duration(seconds: _secondsElapsed);
     return '${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   void handlePauseMenu() {
+    setState(() {
+      isGamePaused = true;
+    });
     _scaffoldKey.currentState?.openDrawer();
-    isGamePaused = true;
     pauseTimer();
-    const Column(
-      children: <Widget>[
-        Text('data',
-            style: TextStyle(
-              color: Colors.blueGrey
-            ),)
-      ],
-    );
+  }
+
+  void handleRestart() {
+    pauseTimer();
   }
 
   @override
@@ -84,29 +101,28 @@ class _GameMapsState extends State<GameMaps> {
     List<double> setCenter() {
       final regionSelected = ModalRoute.of(context)?.settings.arguments;
       List<double> position = [];
-      if (regionSelected.toString().compareTo('Europe') == 0) {
-        latCenterMap  = 48.741954625328475;
-        longCenterMap = 7.163938133239736;
-      }
-      if (regionSelected.toString().compareTo('Asia') == 0) {
-        latCenterMap  = 56.803096204200294;
-        longCenterMap = 98.211287109375;
-      }
-      if (regionSelected.toString().compareTo('North America') == 0) {
-        latCenterMap  = 55.393881785590715;
-        longCenterMap = -103.17147526363959;
-      }
-      if (regionSelected.toString().compareTo('South America') == 0) {
-        latCenterMap  = -17.51449963254834;
-        longCenterMap = -58.16780600170723;
-      }
-      if (regionSelected.toString().compareTo('Africa') == 0) {
-        latCenterMap  = 7.153929558901104;
-        longCenterMap = 18.20416514008552;
-      }
-      if (regionSelected.toString().compareTo('Oceania') == 0) {
-        latCenterMap  = -24.729866469462483;
-        longCenterMap = 133.43742576022515;
+      switch (regionSelected.toString()) {
+        case 'Europe':
+          latCenterMap  = 48.741954625328475;
+          longCenterMap = 7.163938133239736;
+        case 'Asia':
+          latCenterMap  = 56.803096204200294;
+          longCenterMap = 98.211287109375;
+        case 'North America':
+          latCenterMap  = 55.393881785590715;
+          longCenterMap = -103.17147526363959;
+        case 'South America':
+          latCenterMap  = -17.51449963254834;
+          longCenterMap = -58.16780600170723;
+        case 'Africa':
+          latCenterMap  = 7.153929558901104;
+          longCenterMap = 18.20416514008552;
+        case 'Oceania':
+          latCenterMap  = -24.729866469462483;
+          longCenterMap = 133.43742576022515;
+        default:
+          latCenterMap = 45.72434685142984;
+          longCenterMap = 21.574331371307363;
       }
       position.add(latCenterMap);
       position.add(longCenterMap);
@@ -182,6 +198,7 @@ class _GameMapsState extends State<GameMaps> {
               ),
               onTap: () {
                 Navigator.of(context).pop();
+                isGamePaused = false;
                 resumeTimer();
               },
               trailing: const Icon(Icons.play_arrow_outlined),
@@ -193,6 +210,10 @@ class _GameMapsState extends State<GameMaps> {
                 ),
               ),
               onTap: () {
+                /*TODO
+                Fonction permettant de relancer le jeu (génération de nouvelle capitale, redémarrage du timer)
+                 */
+                handleRestart();
               },
               trailing: const Icon(Icons.restart_alt_outlined),
             ),
@@ -203,7 +224,7 @@ class _GameMapsState extends State<GameMaps> {
                 ),
               ),
               onTap: () {
-
+                Navigator.of(context).pushNamed(AppRouter.gameModePage);
               },
               trailing: const Icon(Icons.exit_to_app_outlined),
             ),

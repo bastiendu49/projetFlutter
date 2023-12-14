@@ -7,7 +7,10 @@ class LeaderboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('test'),
+        title: const Padding(
+          padding: EdgeInsets.only(right: 50),
+          child: Center(child: Text('Leaderboard')),
+        ),
       ),
     );
   }

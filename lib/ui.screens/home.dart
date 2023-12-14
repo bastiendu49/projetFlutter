@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jeu_geo/ui.screens/game_lead.dart';
 import 'package:jeu_geo/ui.screens/tutorial.dart';
 
 import 'game_mode.dart';
@@ -43,7 +44,7 @@ class _HomeState extends State<Home> {
         },
       )
           : currentPageIndex == 1
-          ? GameMode(
+          ? GameLeadPage(
         currentPageIndex: currentPageIndex,
         onDestinationSelected: (int index) {
           // Handle selection if needed
