@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:jeu_geo/models/country.dart';
 import 'package:latlong2/latlong.dart';
 
-class AddressRepository {
+class CountryRepository {
 
   Future<List<Country>> fetchCountries(String query) async {
     final Response response = await get(Uri.parse('https://restcountries.com/v3.1/region/europe?fields=name,capital,capitalInfo'));

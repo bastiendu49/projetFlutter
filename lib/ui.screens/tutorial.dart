@@ -22,7 +22,7 @@ class Tutorial extends StatelessWidget {
           children: <Widget> [
             Center(child: Text('Step 1 : Enter a username ', style: TextStyle(fontSize: 20))),
             Divider(),
-            //SizedBox(height: 200, child: Image.file(new File(usernameFilePath)),),
+            //SizedBox(height: 200, child: Image.asset(usernameFilePath)),
             Divider(),
             Center(child: Text('Step 2 : Select a region ', style: TextStyle(fontSize: 20))),
             Divider(),
