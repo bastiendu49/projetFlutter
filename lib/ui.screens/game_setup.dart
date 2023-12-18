@@ -10,7 +10,7 @@ class GameSetup extends StatefulWidget {
     Key? key
   }) : super(key: key);
 
-  static final List<String> _regions = ['Europe', 'Asia', 'North America', 'South America', 'Africa', 'Oceania', 'World'];
+  static final List<String> _regions = ['Europe', 'Asia', 'America', 'Africa', 'Oceania', 'World'];
 
   @override
   State<GameSetup> createState() => _GameSetupState();

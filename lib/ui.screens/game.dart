@@ -36,6 +36,7 @@ class _GameMapsState extends State<GameMaps> {
   bool isGamePaused = false;
   bool isGameEnded = false;
   int speedScoreDown = 10000;
+  var regionSelected;
 
   void gameEnd() {
     if (timeScore == 0) {
@@ -112,7 +113,6 @@ class _GameMapsState extends State<GameMaps> {
 
   @override
   void initState() {
-    _fetchCountries();
     super.initState();
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
@@ -121,13 +121,6 @@ class _GameMapsState extends State<GameMaps> {
         gameEnd();
       });
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-
   }
 
   @override
@@ -185,12 +178,13 @@ class _GameMapsState extends State<GameMaps> {
 
   void handleRestart() {
     resetTimer();
+    _fetchCountries(regionSelected.toString().toLowerCase());
     Navigator.of(context).pop();
   }
-  Future<void> _fetchCountries() async {
+  Future<void> _fetchCountries(String region) async {
     try {
       final List<Country> newCountries =
-      await _countryRepository.fetchCountries('');
+      await _countryRepository.fetchCountries(region);
       setState(() {
         _countries = newCountries;
       });
@@ -274,38 +268,41 @@ class _GameMapsState extends State<GameMaps> {
 
 
   @override
-  Widget build(BuildContext context) {
-    final regionSelected = ModalRoute.of(context)?.settings.arguments;
-    List<double> setCenter() {
-      final regionSelected = ModalRoute.of(context)?.settings.arguments;
-      List<double> position = [];
-      switch (regionSelected.toString()) {
-        case 'Europe':
-          latCenterMap  = 48.741954625328475;
-          longCenterMap = 7.163938133239736;
-        case 'Asia':
-          latCenterMap  = 56.803096204200294;
-          longCenterMap = 98.211287109375;
-        case 'North America':
-          latCenterMap  = 55.393881785590715;
-          longCenterMap = -103.17147526363959;
-        case 'South America':
-          latCenterMap  = -17.51449963254834;
-          longCenterMap = -58.16780600170723;
-        case 'Africa':
-          latCenterMap  = 7.153929558901104;
-          longCenterMap = 18.20416514008552;
-        case 'Oceania':
-          latCenterMap  = -24.729866469462483;
-          longCenterMap = 133.43742576022515;
-        default:
-          latCenterMap = 45.72434685142984;
-          longCenterMap = 21.574331371307363;
-      }
-      position.add(latCenterMap);
-      position.add(longCenterMap);
-      return position;
+  void didChangeDependencies() {
+    regionSelected = ModalRoute.of(context)?.settings.arguments;
+    _fetchCountries(regionSelected.toString().toLowerCase());
+    super.didChangeDependencies();
+  }
+
+  List<double> setCenter() {
+    List<double> position = [];
+    switch (regionSelected.toString().toLowerCase()) {
+      case 'europe':
+        latCenterMap  = 48.741954625328475;
+        longCenterMap = 7.163938133239736;
+      case 'asia':
+        latCenterMap  = 24.03563274981771;
+        longCenterMap = 93.11008154092768;
+      case 'america':
+        latCenterMap  = 16.469201618497905;
+        longCenterMap = -77.45958386961784;
+      case 'africa':
+        latCenterMap  = 2.4622645746101868;
+        longCenterMap = 11.598498915349595;
+      case 'oceania':
+        latCenterMap  = -15.091558350179024;
+        longCenterMap = 149.31395075585948;
+      default:
+        latCenterMap = 45.72434685142984;
+        longCenterMap = 21.574331371307363;
     }
+    position.add(latCenterMap);
+    position.add(longCenterMap);
+    return position;
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
       key: _scaffoldKey,
@@ -329,11 +326,8 @@ class _GameMapsState extends State<GameMaps> {
       ),
       body: FlutterMap(
         options: MapOptions(
-          //center: LatLng(47.4784, -0.5632), // Set the initial map center
           center: LatLng(setCenter().first, setCenter().last),
           zoom: regionSelected.toString().compareTo('World') == 0 ? 1.0 : zoom,
-          // zoom: 4.0,
-          maxZoom: regionSelected.toString().compareTo('World') == 0 ? 1.0 : zoom,
         ),
         layers: [
           TileLayerOptions(
