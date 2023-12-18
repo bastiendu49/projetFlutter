@@ -9,6 +9,12 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Accueil'),
       ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () async {
+            Navigator.of(context).pushNamed('/game') ;
+          },
+        ),
       bottomNavigationBar: NavigationBar(
         destinations: const <Widget>[
           NavigationDestination(

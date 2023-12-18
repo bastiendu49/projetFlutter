@@ -1,8 +1,19 @@
-import 'capital.dart';
+
+
+import 'package:latlong2/latlong.dart';
 
 class Country {
   final String name;
-  final Capital capital;
+  final String capital;
+  final LatLng position;
 
-  const Country({required this.name, required this.capital});
+  factory Country.fromGeoJson(String name, String capitale, LatLng position) {
+    return Country(
+      name: name,
+      capital: capitale,
+      position: position
+    );
+  }
+
+  const Country({required this.name, required this.capital, required this.position});
 }
