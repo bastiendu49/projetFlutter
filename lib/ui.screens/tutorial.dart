@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Tutorial extends StatelessWidget {
-  const Tutorial({super.key, required int currentPageIndex, required Null Function(int index) onDestinationSelected});
+  Tutorial({super.key, required int currentPageIndex, required Null Function(int index) onDestinationSelected});
+
+  String usernameFilePath = '../pictures/username_input.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +17,12 @@ class Tutorial extends StatelessWidget {
         ),
         leading: const Icon(Icons.help_outline_outlined),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget> [
             Center(child: Text('Step 1 : Enter a username ', style: TextStyle(fontSize: 20))),
             Divider(),
-            SizedBox(height: 200),
+            SizedBox(height: 200, child: Image.file(new File(usernameFilePath)),),
             Divider(),
             Center(child: Text('Step 2 : Select a region ', style: TextStyle(fontSize: 20))),
             Divider(),

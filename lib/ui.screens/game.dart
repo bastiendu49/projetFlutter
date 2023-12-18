@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:jeu_geo/blocs/player_cubit.dart';
+import 'package:jeu_geo/models/player.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../router.dart';
@@ -19,14 +21,89 @@ class GameMaps extends StatefulWidget {
 
 class _GameMapsState extends State<GameMaps> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static final List<String> _regions = ['Europe', 'Asia', 'North America', 'South America', 'Africa', 'Oceania', 'World'];
   late Timer _timer;
   int _secondsElapsed = 0;
   int score = 0;
+  int timeScore = 100000;
   double latCenterMap = 45.72434685142984;
   double longCenterMap = 21.574331371307363;
   double zoom = 3.0;
   bool isGamePaused = false;
+  bool isGameEnded = false;
+  int speedScoreDown = 10000;
+
+  void gameEnd() {
+    if (timeScore == 0) {
+      pauseTimer();
+      Future.delayed(Duration.zero, () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Center(child: Text('Time\'s up', style: TextStyle(fontSize: 35, color: Colors.red))),
+              actions: <Widget>[
+                Center(
+                  child: Column(
+                    children: <Widget>[
+                      const Divider(),
+                      TextButton(
+                          onPressed: (){
+                            /*TODO
+                            Méthode pour relancer le jeu
+                             */
+                            handleRestart();
+                          },
+                          child: const Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 75),
+                                child: Text('Replay', style: TextStyle(fontSize: 20)),
+                              ),
+                              SizedBox(width: 40),
+                              Icon(Icons.replay_outlined)
+                            ],
+                          )
+                      ),
+                      TextButton(
+                          onPressed: (){
+                            Navigator.of(context).pushNamed(AppRouter.gameSetupPage);
+                          },
+                          child: const Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 90),
+                                child: Text('Exit', style: TextStyle(fontSize: 20)),
+                              ),
+                              SizedBox(width: 40),
+                              Icon(Icons.exit_to_app_outlined)
+                            ],
+                          )
+                      ),
+                      TextButton(
+                          onPressed: (){
+                            Navigator.of(context).pushNamed(AppRouter.leaderboardPage);
+                          },
+                          child: const Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 40),
+                                child: Text('Leaderboard', style: TextStyle(fontSize: 20)),
+                              ),
+                              SizedBox(width: 40),
+                              Icon(Icons.leaderboard_rounded)
+                            ],
+                          )
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          },
+        );
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -34,6 +111,8 @@ class _GameMapsState extends State<GameMaps> {
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         _secondsElapsed++;
+        timeScore-=speedScoreDown;
+        gameEnd();
       });
     });
   }
@@ -57,6 +136,8 @@ class _GameMapsState extends State<GameMaps> {
       _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
         setState(() {
           _secondsElapsed++;
+          timeScore-=speedScoreDown;
+          gameEnd();
         });
       });
     }
@@ -65,18 +146,16 @@ class _GameMapsState extends State<GameMaps> {
   void resetTimer() {
     setState(() {
       _secondsElapsed = 0;
+      timeScore = 100000;
     });
-    if (_timer.isActive) {
-      _timer.cancel();
-      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-        setState(() {
-          _secondsElapsed++;
-        });
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        _secondsElapsed++;
+        timeScore-=speedScoreDown;
+        gameEnd();
       });
-    }
+    });
   }
-
-
 
   String _formattedTime() {
     Duration duration = Duration(seconds: _secondsElapsed);
@@ -92,7 +171,8 @@ class _GameMapsState extends State<GameMaps> {
   }
 
   void handleRestart() {
-    pauseTimer();
+    resetTimer();
+    Navigator.of(context).pop();
   }
 
   @override
@@ -181,14 +261,6 @@ class _GameMapsState extends State<GameMaps> {
                 ],
               ),
             ),
-            /*
-            TextButton(
-                onPressed: (){},
-                child: ElevatedButton(
-                  onPressed: () { },
-                  child: const Text('Restart'),
-                )
-            ),*/
             const Divider(),
             ListTile(
               title: const Text('Resume',
@@ -224,10 +296,26 @@ class _GameMapsState extends State<GameMaps> {
                 ),
               ),
               onTap: () {
-                Navigator.of(context).pushNamed(AppRouter.gameModePage);
+                Navigator.of(context).pushNamed(AppRouter.gameSetupPage);
               },
               trailing: const Icon(Icons.exit_to_app_outlined),
             ),
+            ListTile(
+              title: const Text('Done', style: TextStyle(fontSize: 20)),
+              onTap: () {
+                Player player = Player(username: PlayerCubit().currentPlayer.username, score: score, time: 'time', hasHighscore: false);
+                print("Player : ${PlayerCubit().currentPlayer.username} |"
+                    " ${PlayerCubit().currentPlayer.score} |"
+                    " ${PlayerCubit().currentPlayer.time} |"
+                    " ${PlayerCubit().currentPlayer.hasHighscore}");
+                print("Player2 : ${player.username} |"
+                    " ${player.score} |"
+                    " ${player.time} |"
+                    " ${player.hasHighscore}");
+                //PlayerCubit().currentPlayer.score = score;
+                //PlayerCubit().currentPlayer.time = _timer.toString();
+              },
+            )
           ],
         ),
       )

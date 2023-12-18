@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jeu_geo/blocs/player_cubit.dart';
 import 'package:jeu_geo/router.dart';
-import 'package:jeu_geo/ui.screens/home.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  final PlayerCubit playerCubit = PlayerCubit();
+
+  playerCubit.loadPlayers();
+
+  runApp(
+      BlocProvider<PlayerCubit>(
+        create: (_) => playerCubit,
+        child: const MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {

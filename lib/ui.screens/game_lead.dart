@@ -21,7 +21,7 @@ class GameLeadPage extends StatelessWidget {
                     const Icon(Icons.map_outlined, size: 80),
                     TextButton(
                         onPressed: (){
-                          Navigator.of(context).pushNamed(AppRouter.gameModePage);
+                          Navigator.of(context).pushNamed(AppRouter.gameSetupPage);
                         },
                         child: const Text('Play', style: TextStyle(fontSize: 30))
                     )

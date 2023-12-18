@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jeu_geo/ui.screens/game_lead.dart';
 import 'package:jeu_geo/ui.screens/tutorial.dart';
 
-import 'game_mode.dart';
+import 'game_setup.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
