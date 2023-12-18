@@ -303,15 +303,11 @@ class _GameMapsState extends State<GameMaps> {
             ListTile(
               title: const Text('Done', style: TextStyle(fontSize: 20)),
               onTap: () {
-                Player player = Player(username: PlayerCubit().currentPlayer.username, score: score, time: 'time', hasHighscore: false);
+                Player player = Player(username: PlayerCubit().currentPlayer.username, score: score, time: _formattedTime(), hasHighscore: false);
                 print("Player : ${PlayerCubit().currentPlayer.username} |"
                     " ${PlayerCubit().currentPlayer.score} |"
                     " ${PlayerCubit().currentPlayer.time} |"
                     " ${PlayerCubit().currentPlayer.hasHighscore}");
-                print("Player2 : ${player.username} |"
-                    " ${player.score} |"
-                    " ${player.time} |"
-                    " ${player.hasHighscore}");
                 //PlayerCubit().currentPlayer.score = score;
                 //PlayerCubit().currentPlayer.time = _timer.toString();
               },

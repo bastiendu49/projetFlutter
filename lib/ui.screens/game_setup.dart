@@ -80,7 +80,7 @@ class _GameSetupState extends State<GameSetup> {
                         //Player player = Player(username: username, score: 0, time: '', hasHighscore: false);
                         //PlayerCubit().currentPlayer.username = username;
                         //PlayerCubit().currentUsername = username;
-                        PlayerCubit().currentPlayer.setUsername(username);
+                        PlayerCubit().currentPlayer.username = username;
                         //PlayerCubit().currentPlayer.copyWith(username: username);
                         Navigator.of(context).pushNamed(AppRouter.gamePage, arguments: region);
                       },
