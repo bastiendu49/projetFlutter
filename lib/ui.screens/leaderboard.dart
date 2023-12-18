@@ -51,15 +51,15 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                 ...state.map((player) =>
                     TableRow(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          //child: TableCell(child: Center(child: player.hasHighscore ? const FaIcon(FontAwesomeIcons.trophy, size: 20) : Text((state.indexOf(player) + 1).toString()))),
-                        ),
-                        //TableCell(child: Center(child: Text(player.username, style: const TextStyle(fontSize: 20)))),
-                        TableCell(child: Center(child: Text(player.score.toString(), style: const TextStyle(fontSize: 20)))),
-                        //TableCell(child: Center(child: Text(player.time, style: const TextStyle(fontSize: 20)))),
-                      ],
+                    Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TableCell(child: Center(child: state.indexOf(player) == 0 ? const FaIcon(FontAwesomeIcons.trophy, size: 20) : Text((state.indexOf(player) + 1).toString()))),
                     ),
+                    TableCell(child: Center(child: Text(player.username ?? 'N/A', style: const TextStyle(fontSize: 20)))),
+                    TableCell(child: Center(child: Text(player.score?.toString() ?? 'N/A', style: const TextStyle(fontSize: 20)))),
+                    TableCell(child: Center(child: Text(player.time ?? 'N/A', style: const TextStyle(fontSize: 20)))),
+
+                    ]),
                 )
               ],
             );

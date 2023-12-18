@@ -32,7 +32,7 @@ class _GameMapsState extends State<GameMaps> {
   int timeScore = 100000;
   double latCenterMap = 45.72434685142984;
   double longCenterMap = 21.574331371307363;
-  double zoom = 3.0;
+  double zoom = 3.2;
   bool isGamePaused = false;
   bool isGameEnded = false;
   int speedScoreDown = 10000;
@@ -121,6 +121,13 @@ class _GameMapsState extends State<GameMaps> {
         gameEnd();
       });
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+
   }
 
   @override
@@ -322,10 +329,11 @@ class _GameMapsState extends State<GameMaps> {
       ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(47.4784, -0.5632), // Set the initial map center
-          // center: LatLng(setCenter().first, setCenter().last),
-          // zoom: regionSelected.toString().compareTo('World') == 0 ? 1.0 : zoom,
-          zoom: 4.0,
+          //center: LatLng(47.4784, -0.5632), // Set the initial map center
+          center: LatLng(setCenter().first, setCenter().last),
+          zoom: regionSelected.toString().compareTo('World') == 0 ? 1.0 : zoom,
+          // zoom: 4.0,
+          maxZoom: regionSelected.toString().compareTo('World') == 0 ? 1.0 : zoom,
         ),
         layers: [
           TileLayerOptions(

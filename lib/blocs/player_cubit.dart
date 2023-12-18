@@ -16,8 +16,13 @@ class PlayerCubit extends Cubit<List<Player>> {
       Player(username: 'Bastien', score: 52750, time: '04:17', hasHighscore: false)
     ];
 
-    // Tri des joueurs par score croissant
-    // players.sort((a, b) => b.score.compareTo(a.score));
+    players.sort((a, b) {
+      if (a.score != null && b.score != null) {
+        return b.score!.compareTo(a.score!);
+      } else {
+        return 0;
+      }
+    });
 
     emit(players);
   }
@@ -25,10 +30,17 @@ class PlayerCubit extends Cubit<List<Player>> {
   void addPlayer(Player player) {
     List<Player> updatedPlayers = [...state, player];
 
-    // updatedPlayers.sort((a, b) => a.score.compareTo(b.score));
+    updatedPlayers.sort((a, b) {
+      if (a.score != null && b.score != null) {
+        return b.score!.compareTo(a.score!);
+      } else {
+        return 0;
+      }
+    });
 
     emit(updatedPlayers);
   }
+
 
   void updateUsername(String newUsername) {
     currentUsername = newUsername;

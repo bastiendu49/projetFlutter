@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class Tutorial extends StatelessWidget {
   Tutorial({super.key, required int currentPageIndex, required Null Function(int index) onDestinationSelected});
 
-  String usernameFilePath = '../pictures/username_input.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +16,19 @@ class Tutorial extends StatelessWidget {
         ),
         leading: const Icon(Icons.help_outline_outlined),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: <Widget> [
             Center(child: Text('Step 1 : Enter a username ', style: TextStyle(fontSize: 20))),
             Divider(),
-            //SizedBox(height: 200, child: Image.asset(usernameFilePath)),
+            SizedBox(height: 100, child: Image(image: AssetImage('assets/pictures/username.png'))),
             Divider(),
             Center(child: Text('Step 2 : Select a region ', style: TextStyle(fontSize: 20))),
             Divider(),
-            SizedBox(height: 200,
+            SizedBox(height: 300,
               child: Column(
                 children: <Widget>[
-                  Expanded(child: SizedBox()),
+                  SizedBox(height: 280, child: Image(image: AssetImage('assets/pictures/regions_list.png'))),
                   Text('Tap on the region you want to play in.')
                 ],
               ),
@@ -48,21 +47,26 @@ class Tutorial extends StatelessWidget {
             Divider(),
             Center(child: Text('Step 4 : How to play ? ', style: TextStyle(fontSize: 20))),
             Divider(),
-            SizedBox(height: 1000,
+            SizedBox(height: 2000,
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 200),
+                  SizedBox(height: 400, child: Image(image: AssetImage('assets/pictures/maps.jpg'))),
                   Text('Tap on one of the markers.'),
-                  SizedBox(height: 200),
+                  SizedBox(height: 50),
+                  SizedBox(height: 400, child: Image(image: AssetImage('assets/pictures/guess.jpg')),),
                   Text('Enter the capital of the country selected.'),
                   Expanded(child: SizedBox()),
                   Text('Once all capitals are found the game ends.'),
                   SizedBox(height: 200),
-                  Text('Score calcul :\n< 3 mins : 100 pts\n> 3mins : - 3 pts /sec.')
+                  Text('Score calcul :\n< 3 mins : 100 pts\n> 3mins : - 3 pts /sec.'),
                 ],
               ),
             ),
             Divider(),
+            Center(child: Text('Step 4 : Beat the highscore ', style: TextStyle(fontSize: 20))),
+            Divider(),
+            SizedBox(height: 200, child: Image(image: AssetImage('assets/pictures/leaderboard.jpg'))),
+            Text('Watch the best scores in the leader board view')
           ],
         ),
       ),
