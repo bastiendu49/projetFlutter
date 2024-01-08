@@ -227,6 +227,11 @@ class _GameMapsState extends State<GameMaps> {
                       'Incorrect capital!',
                       style: TextStyle(color: Colors.red),
                     ),
+                  if (isCapitalCorrect)
+                    Text(
+                      'Correct capital!',
+                      style: TextStyle(color: Colors.green),
+                    ),
                 ],
               ),
               actions: [
@@ -237,12 +242,15 @@ class _GameMapsState extends State<GameMaps> {
                   child: Text('Cancel'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Check if the entered capital is correct
                     if (capitalName.toLowerCase() ==
                         country.capital.toLowerCase()) {
                       // Capital is correct
-                      isCapitalCorrect = true;
+                      setState(() {
+                        isCapitalCorrect = true;
+                      });
+                      await Future.delayed(Duration(seconds: 1));
                       Navigator.of(context).pop();
                     } else {
                       // Capital is incorrect
