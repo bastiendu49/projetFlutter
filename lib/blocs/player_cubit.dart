@@ -5,9 +5,22 @@ class PlayerCubit extends Cubit<List<Player>> {
 
   PlayerCubit() : super([]);
 
-  Player currentPlayer = Player();
+  Player? _currentPlayer;
 
-  late String currentUsername;
+  Player get currentPlayer => _currentPlayer ?? Player();
+
+  void setCurrentPlayer(Player player) {
+    _currentPlayer = player;
+  }
+
+  String? _currentUsername;
+
+  String get currentUsername => _currentUsername ?? '';
+
+  void setUsername(String username) {
+    _currentUsername = username;
+  }
+
 
   Future<void> loadPlayers() async {
     // Chargement initial des joueurs
@@ -41,7 +54,7 @@ class PlayerCubit extends Cubit<List<Player>> {
     emit(updatedPlayers);
   }
 
-
+  /*
   void updateUsername(String newUsername) {
     currentUsername = newUsername;
     currentPlayer = currentPlayer.copyWith(username: newUsername);
@@ -50,6 +63,8 @@ class PlayerCubit extends Cubit<List<Player>> {
   void updateScoreAndTime(int newScore, String newTime) {
     currentPlayer = currentPlayer.copyWith(score: newScore, time: newTime);
   }
+  */
+
   /*
   void setHighscore() {
     if (state.isEmpty) {

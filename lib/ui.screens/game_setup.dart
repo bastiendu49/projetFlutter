@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jeu_geo/models/player.dart';
 import 'package:jeu_geo/router.dart';
 
 import '../blocs/player_cubit.dart';
 
 class GameSetup extends StatefulWidget {
-  GameSetup({
+  const GameSetup({
     Key? key
   }) : super(key: key);
 
   static final List<String> _regions = ['Europe', 'Asia', 'America', 'Africa', 'Oceania', 'World'];
+
 
   @override
   State<GameSetup> createState() => _GameSetupState();
@@ -18,11 +18,9 @@ class GameSetup extends StatefulWidget {
 
 class _GameSetupState extends State<GameSetup> {
   final TextEditingController _usernameController = TextEditingController();
-
+  PlayerCubit pc = PlayerCubit();
 
   var id = 1;
-
-  Player player = Player(username: '', score: 0, time: '', hasHighscore: false);
 
   @override
   void initState() {
@@ -76,12 +74,8 @@ class _GameSetupState extends State<GameSetup> {
                         String username = _usernameController.text.isNotEmpty
                             ? _usernameController.text
                             : 'Player$id';
-                        print(username);
-                        //Player player = Player(username: username, score: 0, time: '', hasHighscore: false);
-                        //PlayerCubit().currentPlayer.username = username;
-                        //PlayerCubit().currentUsername = username;
-                        PlayerCubit().currentPlayer.setUsername(username);
-                        //PlayerCubit().currentPlayer.copyWith(username: username);
+                        pc.setUsername(username);
+                        PlayerCubit().currentPlayer.username = username;
                         Navigator.of(context).pushNamed(AppRouter.gamePage, arguments: region);
                       },
                     ),
@@ -90,6 +84,11 @@ class _GameSetupState extends State<GameSetup> {
               ),
             ),
           ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(AppRouter.homePage);
+            },
+            child: const Icon(Icons.home_outlined, size: 30))
         ],
       ),
     );
