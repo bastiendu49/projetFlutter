@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:jeu_geo/blocs/player_cubit.dart';
 import 'package:jeu_geo/models/player.dart';
@@ -32,10 +33,11 @@ class _GameMapsState extends State<GameMaps> {
   int timeScore = 100000;
   double latCenterMap = 45.72434685142984;
   double longCenterMap = 21.574331371307363;
-  double zoom = 3.0;
+  double zoom = 3.2;
   bool isGamePaused = false;
   bool isGameEnded = false;
-  int speedScoreDown = 10000;
+  int speedScoreDown = 83;
+  int rightAnswerPoints = 100;
   var regionSelected;
 
   void gameEnd() {
@@ -247,6 +249,8 @@ class _GameMapsState extends State<GameMaps> {
                     if (capitalName.toLowerCase() ==
                         country.capital.toLowerCase()) {
                       // Capital is correct
+                      isCapitalCorrect = true;
+                      score += rightAnswerPoints;
                       setState(() {
                         isCapitalCorrect = true;
                       });
@@ -273,6 +277,7 @@ class _GameMapsState extends State<GameMaps> {
       });
     }
   }
+
 
   @override
   void didChangeDependencies() {
@@ -318,7 +323,7 @@ class _GameMapsState extends State<GameMaps> {
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 30),
+                  padding: const EdgeInsets.only(left: 5),
                   child: Text('Score : $score'),
                 ),
                 const SizedBox(width: 60),
@@ -352,7 +357,7 @@ class _GameMapsState extends State<GameMaps> {
                   point: country.position,
                   builder: (BuildContext context) {
                     return IconButton(
-                      icon: Icon(Icons.location_on),
+                      icon: const Icon(Icons.location_on),
                       onPressed: () {
                         _popupCountry(country);
                       },
@@ -424,13 +429,20 @@ class _GameMapsState extends State<GameMaps> {
             ListTile(
               title: const Text('Done', style: TextStyle(fontSize: 20)),
               onTap: () {
-                Player player = Player(username: PlayerCubit().currentPlayer.username, score: score, time: _formattedTime(), hasHighscore: false);
-                print("Player : ${PlayerCubit().currentPlayer.username} |"
-                    " ${PlayerCubit().currentPlayer.score} |"
-                    " ${PlayerCubit().currentPlayer.time} |"
-                    " ${PlayerCubit().currentPlayer.hasHighscore}");
-                //PlayerCubit().currentPlayer.score = score;
-                //PlayerCubit().currentPlayer.time = _timer.toString();
+                PlayerCubit pc = context.read<PlayerCubit>();
+                Player player = Player(
+                  username: pc.currentUsername,
+                  score: score + timeScore,
+                  time: _formattedTime(),
+                  hasHighscore: false,
+                );
+                // pc.setCurrentPlayer(player);
+                print(pc.currentPlayer.username);
+                pc.addPlayer(player);
+                print("Player : ${player.username} |"
+                    " ${player.score} |"
+                    " ${player.time} |"
+                    " ${player.hasHighscore}");
               },
             )
           ],

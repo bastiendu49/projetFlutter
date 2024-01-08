@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jeu_geo/ui.screens/game_lead.dart';
 import 'package:jeu_geo/ui.screens/tutorial.dart';
 
-import 'game_setup.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -27,24 +26,24 @@ class _HomeState extends State<Home> {
         selectedIndex: currentPageIndex,
         destinations: const <Widget>[
           NavigationDestination(
-              icon: Icon(Icons.help),
-              selectedIcon: Icon(Icons.help_outline_outlined),
-              label: 'Help'),
-          NavigationDestination(
               icon: Icon(Icons.play_arrow),
               selectedIcon: Icon(Icons.play_arrow_outlined),
-              label: 'Play')
+              label: 'Play'),
+          NavigationDestination(
+              icon: Icon(Icons.help),
+              selectedIcon: Icon(Icons.help_outline_outlined),
+              label: 'Help')
         ]
       ),
       body: currentPageIndex == 0
-          ? Tutorial(
-        currentPageIndex: currentPageIndex,
-        onDestinationSelected: (int index) {
-          // Handle selection if needed
-        },
+      ? GameLeadPage(
+      currentPageIndex: currentPageIndex,
+      onDestinationSelected: (int index) {
+        // Handle selection if needed
+      },
       )
           : currentPageIndex == 1
-          ? GameLeadPage(
+          ? Tutorial(
         currentPageIndex: currentPageIndex,
         onDestinationSelected: (int index) {
           // Handle selection if needed

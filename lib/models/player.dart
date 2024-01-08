@@ -1,11 +1,17 @@
 class Player {
+  /*
+   late String username;
+   late int score;
+   late String time;
+   late bool hasHighscore;
+    */
    String? username;
    int? score;
    String? time;
    bool? hasHighscore;
 
-  //Player(this.username, this.score, this.time, this.hasHighscore);
-  Player({ this.username,  this.score,  this.time,  this.hasHighscore});
+  Player({this.username, this.score, this.time, this.hasHighscore});
+  //Player({ required this.username,  required this.score,  required this.time,  required this.hasHighscore});
 
   void setUsername(String username) {
     this.username = username;

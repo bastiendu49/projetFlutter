@@ -5,9 +5,22 @@ class PlayerCubit extends Cubit<List<Player>> {
 
   PlayerCubit() : super([]);
 
-  Player currentPlayer = Player();
+  Player? _currentPlayer;
 
-  late String currentUsername;
+  Player get currentPlayer => _currentPlayer ?? Player();
+
+  void setCurrentPlayer(Player player) {
+    _currentPlayer = player;
+  }
+
+  String? _currentUsername;
+
+  String get currentUsername => _currentUsername ?? '';
+
+  void setUsername(String username) {
+    _currentUsername = username;
+  }
+
 
   Future<void> loadPlayers() async {
     // Chargement initial des joueurs
@@ -16,8 +29,13 @@ class PlayerCubit extends Cubit<List<Player>> {
       Player(username: 'Bastien', score: 52750, time: '04:17', hasHighscore: false)
     ];
 
-    // Tri des joueurs par score croissant
-    // players.sort((a, b) => b.score.compareTo(a.score));
+    players.sort((a, b) {
+      if (a.score != null && b.score != null) {
+        return b.score!.compareTo(a.score!);
+      } else {
+        return 0;
+      }
+    });
 
     emit(players);
   }
@@ -25,11 +43,18 @@ class PlayerCubit extends Cubit<List<Player>> {
   void addPlayer(Player player) {
     List<Player> updatedPlayers = [...state, player];
 
-    // updatedPlayers.sort((a, b) => a.score.compareTo(b.score));
+    updatedPlayers.sort((a, b) {
+      if (a.score != null && b.score != null) {
+        return b.score!.compareTo(a.score!);
+      } else {
+        return 0;
+      }
+    });
 
     emit(updatedPlayers);
   }
 
+  /*
   void updateUsername(String newUsername) {
     currentUsername = newUsername;
     currentPlayer = currentPlayer.copyWith(username: newUsername);
@@ -38,6 +63,8 @@ class PlayerCubit extends Cubit<List<Player>> {
   void updateScoreAndTime(int newScore, String newTime) {
     currentPlayer = currentPlayer.copyWith(score: newScore, time: newTime);
   }
+  */
+
   /*
   void setHighscore() {
     if (state.isEmpty) {

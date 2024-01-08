@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jeu_geo/models/player.dart';
 
 import '../blocs/player_cubit.dart';
+import '../router.dart';
 
 class LeaderboardPage extends StatefulWidget {
   LeaderboardPage({super.key});
@@ -30,41 +31,54 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
           child: Center(child: Text('Leaderboard')),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: BlocBuilder<PlayerCubit, List<Player>>(
-          builder: (context, state) {
-            return Table(
-              border: TableBorder.all(
-                  borderRadius: BorderRadius.circular(10),
-                  width: 1.5
-              ),
-              children: <TableRow>[
-                const TableRow(
-                  children: [
-                    TableCell(child: Center(child: Text('Rank', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
-                    TableCell(child: Center(child: Text('Name', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
-                    TableCell(child: Center(child: Text('Score', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
-                    TableCell(child: Center(child: Text('Time', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
-                  ],
-                ),
-                ...state.map((player) =>
-                    TableRow(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          //child: TableCell(child: Center(child: player.hasHighscore ? const FaIcon(FontAwesomeIcons.trophy, size: 20) : Text((state.indexOf(player) + 1).toString()))),
-                        ),
-                        //TableCell(child: Center(child: Text(player.username, style: const TextStyle(fontSize: 20)))),
-                        TableCell(child: Center(child: Text(player.score.toString(), style: const TextStyle(fontSize: 20)))),
-                        //TableCell(child: Center(child: Text(player.time, style: const TextStyle(fontSize: 20)))),
-                      ],
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: BlocBuilder<PlayerCubit, List<Player>>(
+                builder: (context, state) {
+                  return Table(
+                    border: TableBorder.all(
+                        borderRadius: BorderRadius.circular(10),
+                        width: 1.5
                     ),
-                )
-              ],
-            );
-          },
-        ),
+                    children: <TableRow>[
+                      const TableRow(
+                        children: [
+                          TableCell(child: Center(child: Text('Rank', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
+                          TableCell(child: Center(child: Text('Name', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
+                          TableCell(child: Center(child: Text('Score', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
+                          TableCell(child: Center(child: Text('Time', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
+                        ],
+                      ),
+                      ...state.map((player) =>
+                          TableRow(
+                            children: [
+                          Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: TableCell(child: Center(child: state.indexOf(player) == 0 ? const FaIcon(FontAwesomeIcons.trophy, size: 20) : Text((state.indexOf(player) + 1).toString()))),
+                          ),
+                          TableCell(child: Center(child: Text(player.username ?? 'N/A', style: const TextStyle(fontSize: 20)))),
+                          TableCell(child: Center(child: Text(player.score?.toString() ?? 'N/A', style: const TextStyle(fontSize: 20)))),
+                          TableCell(child: Center(child: Text(player.time ?? 'N/A', style: const TextStyle(fontSize: 20)))),
+                          ]),
+                      )
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 40,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRouter.homePage);
+                },
+                child: const Icon(Icons.home_outlined, size: 30)),
+          )
+        ],
       ),
     );
   }
