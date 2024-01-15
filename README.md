@@ -26,7 +26,8 @@ Description détaillée de votre application et de son objectif.
 
 ## API utilisée
 
-Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien](https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo). Après l'avoir prise en main après quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations.
+Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien]([https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo](https://restcountries.com)). Après l'avoir prise en main grâce à quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations. Les informations qui nous importaient étaient le nom des pays, leur capitale ainsi que leur drapeau. Le nom et la capitale nous sont utiles pour le jeu Capitales et le nom et le drapeau pour le jeu Drapeaux.
+
 ## Jeu Capitales
 
 
