@@ -19,9 +19,6 @@ Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une applicat
    - [router](#router)
 - [Difficultés Rencontrées](#difficultés-rencontrées)
 - [Captures d'écran](#captures-décran)
-- [Fonctionnalités](#fonctionnalités)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
 - [Dépendances](#dépendances)
 - [Contributions](#contributions)
 - [Licence](#licence)
@@ -75,7 +72,8 @@ Pour une meilleure compréhension voir [Captures d'écran](#capture-decran-model
 
 ### repository
 
-Ce répertoire contient le
+Ce répertoire contient le repository pour accéder aux différentes informations des pays(Nom, Capital, position de la capitale et le drapeau en png), nous avons utiliser l'api restcountries et en focntione de la zone souhaité la requête prennait soit tous les pays soit juste une zone géographique, et en fonction du jeu nous récupérions soit la nom la capitale et sa position, soit le nom et le drapeau.
+Ensuite nous avions juste à créer des models country avec les informations souhaité prises dans le Json fourni par l'API
 
 ## Difficultés Rencontrées
 Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas 
