@@ -74,8 +74,8 @@ Ce répertoire contient les différents modèles utilisés lors de ce projet :
 Pour une meilleure compréhension voir [Captures d'écran](#capture-decran-models)
 
 ### repository
-POUR BASTIEN
 
+Ce répertoire contient le
 
 ## Difficultés Rencontrées
 Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas 
@@ -85,18 +85,6 @@ Description des difficultés que vous avez rencontrées lors du développement e
 
 Ajoutez ici des captures d'écran de votre application pour montrer son apparence et son fonctionnement.
 
-## Fonctionnalités
-
-Listez ici les principales fonctionnalités de votre application.
-
-## Installation
-
-Expliquez comment installer votre application.
-
-## Utilisation
-
-Expliquez comment utiliser votre application une fois qu'elle est installée.
-
 ## Dépendances
 
 Listez les principales dépendances de votre projet.
@@ -105,14 +93,6 @@ Listez les principales dépendances de votre projet.
 - [font_awesome_flutter](https://pub.dev/packages/font_awesome_flutter)
 - ...
 
-## Contributions
-
-Indiquez comment les personnes peuvent contribuer à votre projet.
-
-## Licence
-
-
-## 
 
 ## Getting Started
 
