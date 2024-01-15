@@ -1,6 +1,9 @@
 # jeu_geo
 
-A new Flutter project.
+Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une application de jeu de géographie.
+
+#Table des matières 
+
 
 ## Getting Started
 
