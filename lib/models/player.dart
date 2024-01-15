@@ -6,36 +6,48 @@ class Player {
    late bool hasHighscore;
     */
    String? username;
-   int? score;
-   String? time;
-   bool? hasHighscore;
+   int? scoreCapitals;
+   int? scoreFlags;
+   String? timeCapitals;
+   String? timeFlags;
+   bool? hasHighscoreCapitals;
+   bool? hasHighscoreFlags;
 
-  Player({this.username, this.score, this.time, this.hasHighscore});
-  //Player({ required this.username,  required this.score,  required this.time,  required this.hasHighscore});
+  Player({
+    this.username,
+    this.scoreCapitals,
+    this.scoreFlags,
+    this.timeCapitals,
+    this.timeFlags,
+    this.hasHighscoreCapitals,
+    this.hasHighscoreFlags
+  });
 
   void setUsername(String username) {
     this.username = username;
   }
 
-  void setScore(int score) {
-    this.score = score;
+  void setScoreCapitals(int score) {
+    this.scoreCapitals = score;
   }
 
-  void setTime(String time) {
-    this.time = time;
+  void setTimeCapitals(String time) {
+    this.timeCapitals = time;
   }
 
   Player copyWith({
     String? username,
-    int? score,
+    int? scoreCapitals,
+    int? scoreFlags,
     String? time,
     bool? hasHighscore
   }) {
     return Player(
       username: username ?? this.username,
-      score: score ?? this.score,
-      time: time ?? this.time,
-      hasHighscore: hasHighscore ?? this.hasHighscore
+      scoreCapitals: scoreCapitals ?? this.scoreCapitals,
+      scoreFlags: scoreFlags ?? this.scoreFlags,
+      timeCapitals: timeCapitals ?? this.timeCapitals,
+      hasHighscoreCapitals: hasHighscore ?? this.hasHighscoreCapitals
     );
   }
 }

@@ -5,9 +5,8 @@ import 'package:jeu_geo/router.dart';
 import '../blocs/player_cubit.dart';
 
 class GameSetup extends StatefulWidget {
-  const GameSetup({
-    Key? key
-  }) : super(key: key);
+  GameSetup({Key? key}) : super(key: key);
+
 
   static final List<String> _regions = ['Europe', 'Asia', 'America', 'Africa', 'Oceania', 'World'];
 
@@ -25,11 +24,11 @@ class _GameSetupState extends State<GameSetup> {
   @override
   void initState() {
     super.initState();
-    context.read<PlayerCubit>().loadPlayers();
   }
 
   @override
   Widget build(BuildContext context) {
+    final PlayerCubit playerCubit = BlocProvider.of<PlayerCubit>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
@@ -74,8 +73,7 @@ class _GameSetupState extends State<GameSetup> {
                         String username = _usernameController.text.isNotEmpty
                             ? _usernameController.text
                             : 'Player$id';
-                        pc.setUsername(username);
-                        PlayerCubit().currentPlayer.username = username;
+                        playerCubit.setUsername(username);
                         Navigator.of(context).pushNamed(AppRouter.gamePage, arguments: region);
                       },
                     ),

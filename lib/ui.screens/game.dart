@@ -13,10 +13,10 @@ import '../router.dart';
 
 
 class GameMaps extends StatefulWidget {
+  final PlayerCubit playerCubit;
 
-  const GameMaps({
-    Key? key,
-  }) : super(key: key);
+  const GameMaps({Key? key, required this.playerCubit}) : super(key: key);
+
 
   @override
   State<GameMaps> createState() => _GameMapsState();
@@ -30,18 +30,16 @@ class _GameMapsState extends State<GameMaps> {
   late Timer _timer;
   int _secondsElapsed = 0;
   int score = 0;
-  int timeScore = 100000;
   double latCenterMap = 45.72434685142984;
   double longCenterMap = 21.574331371307363;
   double zoom = 3.2;
   bool isGamePaused = false;
   bool isGameEnded = false;
-  int speedScoreDown = 83;
-  int rightAnswerPoints = 100;
+  int rightAnswerPoints = 10;
   var regionSelected;
 
   void gameEnd() {
-    if (timeScore == 0) {
+    if (_secondsElapsed == 900) {
       pauseTimer();
       Future.delayed(Duration.zero, () {
         showDialog(
@@ -119,7 +117,6 @@ class _GameMapsState extends State<GameMaps> {
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         _secondsElapsed++;
-        timeScore-=speedScoreDown;
         gameEnd();
       });
     });
@@ -144,7 +141,6 @@ class _GameMapsState extends State<GameMaps> {
       _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
         setState(() {
           _secondsElapsed++;
-          timeScore-=speedScoreDown;
           gameEnd();
         });
       });
@@ -154,12 +150,10 @@ class _GameMapsState extends State<GameMaps> {
   void resetTimer() {
     setState(() {
       _secondsElapsed = 0;
-      timeScore = 100000;
     });
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         _secondsElapsed++;
-        timeScore-=speedScoreDown;
         gameEnd();
       });
     });
@@ -306,7 +300,7 @@ class _GameMapsState extends State<GameMaps> {
 
   @override
   Widget build(BuildContext context) {
-
+    final PlayerCubit playerCubit = BlocProvider.of<PlayerCubit>(context);
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -420,21 +414,14 @@ class _GameMapsState extends State<GameMaps> {
             ListTile(
               title: const Text('Done', style: TextStyle(fontSize: 20)),
               onTap: () {
-                PlayerCubit pc = context.read<PlayerCubit>();
                 Player player = Player(
-                  username: pc.currentUsername,
-                  score: score + timeScore,
-                  time: _formattedTime(),
-                  hasHighscore: false,
+                  username: playerCubit.currentUsername,
+                  scoreCapitals: score,
+                  timeCapitals: _formattedTime(),
+                  hasHighscoreCapitals: false,
                 );
-                // pc.setCurrentPlayer(player);
-                print(pc.currentPlayer.username);
-                pc.addPlayer(player);
-                print("Player : ${player.username} |"
-                    " ${player.score} |"
-                    " ${player.time} |"
-                    " ${player.hasHighscore}");
-              },
+                playerCubit.addPlayerCapitals(player);
+              }
             )
           ],
         ),
