@@ -25,10 +25,12 @@ Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une applicat
 L'application comporte deux jeux axés sur la géographie pour s'amuser et se perfectionner dans ce domaine. Choisissez entre trouver les capitales des pays indiqués ou trouver les pays correspondant aux drapeaux. Avec une interfae utilisateur 
 ## API utilisée
 
-Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien]([https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo](https://restcountries.com)). Après l'avoir prise en main grâce à quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations. Les informations qui nous importaient étaient le nom des pays, leur capitale ainsi que leur drapeau. Le nom et la capitale nous sont utiles pour le jeu Capitales et le nom et le drapeau pour le jeu Drapeaux.
+Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien]([https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo](https://restcountries.com)). Après l'avoir prise en main grâce à quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations. Les informations qui nous importaient étaient le nom des pays, leur capitale et leur position en LatLong ainsi que leur drapeau. Le nom la capitale et sa position nous sont utiles pour le jeu Capitales et le nom et le drapeau pour le jeu Drapeaux.
 
 ## Jeu Capitales
-Dans ce jeu le but est de trouver la capitale des pays afficher sur une carte. Chaque pays est marquée d'un icone cliquable qui, une fois cliqué, ouvre une boite de dialogue permettant d'entrer notre réponse et un bouton 'Submit' pour la valider. Ensuite, si la réponse est correcte un message de réussite vert apparaît pendant quelques secondes puis la boite disparaît afin de continuer le jeu. En revanche, si la réponse soumise est fausse un message d'erreur rouge apparaît pendant quelques secondes et la boite de dialogue reste ouverte, pour la fermer il faut appuyer sur le bouton 'Cancel'. Il y a la possibilité de mettre le jeu en pause en cliquant sur l'icone menu dans l'appBar; cette action ouvrant une sidebar qui couvre partiellement la zone de jeu avec 4 zones cliquables correspondant aux 4 actions possibles à savoir : 
+Dans ce jeu le but est de trouver la capitale des pays afficher sur une carte. Chaque pays est marquée d'un icone cliquable qui, une fois cliqué, ouvre une boite de dialogue permettant d'entrer notre réponse et un bouton 'Submit' pour la valider. 
+Le joueur peut sélectionner son pseudo et le zone géographique sur laquelle il souhaite jouer(Europe, Asie, Afrique, Amérique, Monde, Océanie).
+Ensuite, si la réponse est correcte un message de réussite vert apparaît pendant quelques secondes puis la boite disparaît afin de continuer le jeu. En revanche, si la réponse soumise est fausse un message d'erreur rouge apparaît pendant quelques secondes et la boite de dialogue reste ouverte, pour la fermer il faut appuyer sur le bouton 'Cancel'. Il y a la possibilité de mettre le jeu en pause en cliquant sur l'icone menu dans l'appBar; cette action ouvrant une sidebar qui couvre partiellement la zone de jeu avec 4 zones cliquables correspondant aux 4 actions possibles à savoir : 
    - 'Resume' pour continuer de jouer et relancer le chronomètre
    - 'Restart' pour recommencer le jeu à zéro, redémmarer le chrnomètre et réinitialiser le score à 0
    - 'Quit' pour quitter la page de jeu et revenir à la page de sélection de la zone géographique.
@@ -39,7 +41,10 @@ Pour plus de compréhension voir [Captures d'écran](#capture-decran-jeu-capital
 
 ## Jeu Drapeaux
 
-Spécifier le problème au niveau de la partie jeu Flag
+Dans ce jeu le but est de trouver le pays associé à son drapeau. Chaque drapeau est affiché accompagné d'un champs de texte pour rentrer le nom du pays et d'un bouton valider.
+Le joueur peut sélectionner son pseudo et le zone géographique sur laquelle il souhaite jouer(Europe, Asie, Afrique, Amérique, Monde, Océanie).
+Le but final de ce jeu est d'avoir un message de validation ou d'erreur quand on valide un nom de pays et la même sidebar que pour le jeu des capitales mais nous n'avons pas réussi ces parties là.
+Pour le moment nous ne pouvons pas rentrer d'information dans les input et la validation ne peut donc pas être effectué, cela est dû à un manque de temps et un problème d'IDE.
 
 ## Structure du Projet
 
