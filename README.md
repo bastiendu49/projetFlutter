@@ -26,6 +26,7 @@ Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une applicat
 
 ## Présentation de l'Application
 L'application comporte deux jeux axés sur la géographie pour s'amuser et se perfectionner dans ce domaine. Choisissez entre trouver les capitales des pays indiqués ou trouver les pays correspondant aux drapeaux. Avec une interfae utilisateur 
+
 ## API utilisée
 
 Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien]([https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo](https://restcountries.com)). Après l'avoir prise en main grâce à quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations. Les informations qui nous importaient étaient le nom des pays, leur capitale ainsi que leur drapeau. Le nom et la capitale nous sont utiles pour le jeu Capitales et le nom et le drapeau pour le jeu Drapeaux.
