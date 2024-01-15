@@ -34,7 +34,38 @@ class CountryRepository {
           final String capitales = countryJson['capital'][0];
           final List<dynamic> positions = countryJson['capitalInfo']['latlng'];
           LatLng positionsLatLng = LatLng(positions[0] ?? 0.0, positions[1] ?? 0.0);
-          final Country country = Country.fromGeoJson(names, capitales, positionsLatLng);
+          final Country country = Country.fromGeoJsonCapital(names, capitales, positionsLatLng);
+          countries.add(country);
+        }
+      }
+      return countries;
+    } else {
+      throw Exception('Failed to load countries');
+    }
+  }
+
+  Future<List<Country>> fetchFlags(String query) async {
+    final Response response;
+    //final Response response = await get(Uri.parse('https://restcountries.com/v3.1/region/europe?fields=name,capital,capitalInfo'));
+    if(query == "world"){
+      response = await get(Uri.parse('https://restcountries.com/v3.1/all?fields=name,flags'));
+    }
+    else {
+      response = await get(Uri.parse(
+          'https://restcountries.com/v3.1/region/$query?fields=name,flags'));
+    }
+    //europe, asia, oceania, america, africa, https://restcountries.com/v3.1/all
+    if (response.statusCode == 200) {
+      final List<Country> countries = []; // Liste que la méthode va renvoyer
+
+      // Transformation du JSON (String) en List<dynamic>
+      final List<dynamic> jsonList = jsonDecode(response.body);
+      for (final dynamic countryJson in jsonList) {
+        if (countryJson.containsKey("name") &&
+            countryJson.containsKey("flags")) {
+          final String names = countryJson['name']['common'];
+          final String flags = countryJson['flags']['png'];
+          final Country country = Country.fromGeoJsonFlag(names, flags);
           countries.add(country);
         }
       }

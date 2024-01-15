@@ -12,17 +12,17 @@ import '../repository/country_repository.dart';
 import '../router.dart';
 
 
-class GameMaps extends StatefulWidget {
-  final PlayerCubit playerCubit;
+class GameFlag extends StatefulWidget {
 
-  const GameMaps({Key? key, required this.playerCubit}) : super(key: key);
-
+  const GameFlag({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<GameMaps> createState() => _GameMapsState();
+  State<GameFlag> createState() => _GameFlagState();
 }
 
-class _GameMapsState extends State<GameMaps> {
+class _GameFlagState extends State<GameFlag> {
   List<Country> _countries = [];
 
   final CountryRepository _countryRepository = CountryRepository();
@@ -30,16 +30,21 @@ class _GameMapsState extends State<GameMaps> {
   late Timer _timer;
   int _secondsElapsed = 0;
   int score = 0;
+  int timeScore = 100000;
   double latCenterMap = 45.72434685142984;
   double longCenterMap = 21.574331371307363;
   double zoom = 3.2;
   bool isGamePaused = false;
   bool isGameEnded = false;
-  int rightAnswerPoints = 10;
+  int speedScoreDown = 83;
+  int rightAnswerPoints = 100;
   var regionSelected;
+  String countryName = ''; // Variable to store the entered capital name
+  bool isCountryIncorrect = false;
+  bool isCountryCorrect = false;
 
   void gameEnd() {
-    if (_secondsElapsed == 900) {
+    if (timeScore == 0) {
       pauseTimer();
       Future.delayed(Duration.zero, () {
         showDialog(
@@ -54,10 +59,10 @@ class _GameMapsState extends State<GameMaps> {
                       const Divider(),
                       TextButton(
                           onPressed: (){
-                            /*TODO
+                            /*
                             Méthode pour relancer le jeu
                              */
-                            handleRestart();
+                            //handleRestart();
                           },
                           child: const Row(
                             children: [
@@ -117,6 +122,7 @@ class _GameMapsState extends State<GameMaps> {
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         _secondsElapsed++;
+        timeScore-=speedScoreDown;
         gameEnd();
       });
     });
@@ -141,6 +147,7 @@ class _GameMapsState extends State<GameMaps> {
       _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
         setState(() {
           _secondsElapsed++;
+          timeScore-=speedScoreDown;
           gameEnd();
         });
       });
@@ -150,10 +157,12 @@ class _GameMapsState extends State<GameMaps> {
   void resetTimer() {
     setState(() {
       _secondsElapsed = 0;
+      timeScore = 100000;
     });
     _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         _secondsElapsed++;
+        timeScore-=speedScoreDown;
         gameEnd();
       });
     });
@@ -172,15 +181,23 @@ class _GameMapsState extends State<GameMaps> {
     pauseTimer();
   }
 
+  @override
+  void didChangeDependencies() {
+    regionSelected = ModalRoute.of(context)?.settings.arguments;
+    _fetchFlags(regionSelected.toString().toLowerCase());
+    super.didChangeDependencies();
+  }
+
   void handleRestart() {
     resetTimer();
-    _fetchCountries(regionSelected.toString().toLowerCase());
+    _fetchFlags(regionSelected.toString().toLowerCase());
     Navigator.of(context).pop();
   }
-  Future<void> _fetchCountries(String region) async {
+
+  Future<void> _fetchFlags(String region) async {
     try {
       final List<Country> newCountries =
-      await _countryRepository.fetchCountries(region);
+      await _countryRepository.fetchFlags(region);
       setState(() {
         _countries = newCountries;
       });
@@ -194,176 +211,79 @@ class _GameMapsState extends State<GameMaps> {
     }
   }
 
-  Future<void> _popupCountry(Country country) async {
-    String capitalName = ''; // Variable to store the entered capital name
-    bool isCapitalIncorrect = false; // Flag to track if the capital is incorrect
-    bool isCapitalCorrect = false;
-
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-            return AlertDialog(
-              title: Text('Country: ${country.name}'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Enter the capital name:'),
-                  TextFormField(
-                    onChanged: (value) {
-                      setState(() {
-                        capitalName = value;
-                        isCapitalIncorrect = false; // Reset the flag on input change
-                      });
-                    },
-                  ),
-                  if (isCapitalIncorrect)
-                    Text(
-                      'Incorrect capital!',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  if (isCapitalCorrect)
-                    Text(
-                      'Correct capital!',
-                      style: TextStyle(color: Colors.green),
-                    ),
-                ],
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Cancel'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    // Check if the entered capital is correct
-                    if (capitalName.toLowerCase() ==
-                        country.capital.toLowerCase()) {
-                      // Capital is correct
-                      isCapitalCorrect = true;
-                      score += rightAnswerPoints;
-                      setState(() {
-                        isCapitalCorrect = true;
-                      });
-                      await Future.delayed(Duration(seconds: 1));
-                      Navigator.of(context).pop();
-                    } else {
-                      // Capital is incorrect
-                      setState(() {
-                        isCapitalIncorrect = true;
-                      });
-                    }
-                  },
-                  child: Text('Submit'),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-    if(isCapitalCorrect){
-      setState(() {
-        _countries.remove(country);
-      });
-    }
-  }
-
-
-  @override
-  void didChangeDependencies() {
-    regionSelected = ModalRoute.of(context)?.settings.arguments;
-    _fetchCountries(regionSelected.toString().toLowerCase());
-    super.didChangeDependencies();
-  }
-
-  List<double> setCenter() {
-    List<double> position = [];
-    switch (regionSelected.toString().toLowerCase()) {
-      case 'europe':
-        latCenterMap  = 48.741954625328475;
-        longCenterMap = 7.163938133239736;
-      case 'asia':
-        latCenterMap  = 24.03563274981771;
-        longCenterMap = 93.11008154092768;
-      case 'america':
-        latCenterMap  = 16.469201618497905;
-        longCenterMap = -77.45958386961784;
-      case 'africa':
-        latCenterMap  = 2.4622645746101868;
-        longCenterMap = 11.598498915349595;
-      case 'oceania':
-        latCenterMap  = -15.091558350179024;
-        longCenterMap = 149.31395075585948;
-      default:
-        latCenterMap = 45.72434685142984;
-        longCenterMap = 21.574331371307363;
-    }
-    position.add(latCenterMap);
-    position.add(longCenterMap);
-    return position;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final PlayerCubit playerCubit = BlocProvider.of<PlayerCubit>(context);
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Center(
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Text('Score : $score'),
-                ),
-                const SizedBox(width: 60),
-                const Icon(Icons.timer_outlined),
-                Text(' : ${_formattedTime()}'),
-              ],
-            )
-        ) ,
-        leading: IconButton(
-          onPressed: handlePauseMenu,
-          icon: const Icon(Icons.menu_outlined)),
+      body:
+      ListView.separated(
+        itemCount: _countries.length,
+        itemBuilder: (BuildContext context, int index) {
+          final GlobalKey<FormState> _formKey = GlobalKey();
+          final Country country = _countries[index];
+          return Form(
+              key: _formKey,
+              child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Image.network(country.flag!, width: 100, height: 100),
+                    ),
+                    Expanded(child:
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: TextFormField(
+                          onChanged: (value) {
+                            /*setState(() {
+                              countryName = value;
+                              isCountryIncorrect = false;
+                              isCountryCorrect = false;
+                            });*/
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Enter a country name';
+                            }
+                            if (isCountryIncorrect) {
+                              return 'Correct';
+                            }
+                            if (isCountryCorrect){
+                              return 'Incorrect';
+                            }
+                            return null;
+                          }
+                      ),
+                    ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (countryName.toLowerCase() ==
+                                country.name.toLowerCase()
+                            && _formKey.currentState!.validate()) {
+                              // Capital is correct
+                              score += rightAnswerPoints;
+                              setState(() {
+                                isCountryCorrect = true;
+                              });
+                            } else if (_formKey.currentState!.validate()) {
+                              // Capital is incorrect
+                              setState(() {
+                                isCountryIncorrect = true;
+                              });
+                            }
+                          },
+                          child: Text('Submit')),
+                    )
+                  ]
+              )
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider(height: 10);
+        },
       ),
-      body: FlutterMap(
-        options: MapOptions(
-          center: LatLng(setCenter().first, setCenter().last),
-          zoom: regionSelected.toString().compareTo('World') == 0 ? 1.0 : zoom,
-        ),
-        layers: [
-          TileLayerOptions(
-              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c'],
-              keepBuffer: 20,
-              tileProvider: NetworkTileProvider()
-          ),
-          MarkerLayerOptions(
-            markers: _countries.map(
-                  (Country country) {
-                return Marker(
-                  width: 40.0,
-                  height: 40.0,
-                  point: country.position,
-                  builder: (BuildContext context) {
-                    return IconButton(
-                      icon: const Icon(Icons.location_on),
-                      onPressed: () {
-                        _popupCountry(country);
-                      },
-                    );
-                  },
-                );
-              },
-            ).toList(),
-          ),
-        ],
-      ),
-      drawer: isGamePaused ? Drawer(
+      /*drawer: isGamePaused ? Drawer(
         child: Column(
           children: <Widget>[
             const SizedBox(height: 40),
@@ -374,9 +294,9 @@ class _GameMapsState extends State<GameMaps> {
                   Icon(Icons.pause_outlined, size: 30,),
                   SizedBox(width: 10),
                   Text('Pause',
-                        style: TextStyle(
-                            fontSize: 30
-                        ),
+                    style: TextStyle(
+                        fontSize: 30
+                    ),
                   ),
                 ],
               ),
@@ -402,7 +322,7 @@ class _GameMapsState extends State<GameMaps> {
                 ),
               ),
               onTap: () {
-                /*TODO
+                /*
                 Fonction permettant de relancer le jeu (génération de nouvelle capitale, redémarrage du timer)
                  */
                 handleRestart();
@@ -423,19 +343,26 @@ class _GameMapsState extends State<GameMaps> {
             ListTile(
               title: const Text('Done', style: TextStyle(fontSize: 20)),
               onTap: () {
+                PlayerCubit pc = context.read<PlayerCubit>();
                 Player player = Player(
-                  username: playerCubit.currentUsername,
-                  scoreCapitals: score,
-                  timeCapitals: _formattedTime(),
-                  hasHighscoreCapitals: false,
+                  username: pc.currentUsername,
+                  score: score + timeScore,
+                  time: _formattedTime(),
+                  hasHighscore: false,
                 );
-                playerCubit.addPlayerCapitals(player);
-              }
+                // pc.setCurrentPlayer(player);
+                print(pc.currentPlayer.username);
+                pc.addPlayer(player);
+                print("Player : ${player.username} |"
+                    " ${player.score} |"
+                    " ${player.time} |"
+                    " ${player.hasHighscore}");
+              },
             )
           ],
         ),
       )
-      : null,
+          : null,*/
     );
   }
 }

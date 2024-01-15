@@ -7,13 +7,15 @@ import 'package:jeu_geo/ui.screens/leaderboard.dart';
 class AppRouter {
   static const String homePage = '/home';
   static const String gameSetupPage = '/gameSetup';
-  static const String gamePage = '/game';
+  static const String gameCapitalPage = '/game';
   static const String leaderboardPage = '/leaderboard';
+  static const String gameFlagPage = '/gameFlag';
 
   static final routes = {
     homePage: (context) => const Home(),
     gameSetupPage: (context) => GameSetup(),
-    gamePage: (context) => GameMaps(playerCubit: PlayerCubit(),),
+    gameCapitalPage: (context) => const GameMaps(playerCubit: PlayerCubit(),),
     leaderboardPage: (context) => LeaderboardPage(),
+    gameFlagPage: (context) => const GameFlag(),
   };
 }

@@ -21,9 +21,22 @@ class GameLeadPage extends StatelessWidget {
                     const Icon(Icons.map_outlined, size: 80),
                     TextButton(
                         onPressed: (){
-                          Navigator.of(context).pushNamed(AppRouter.gameSetupPage);
+                          Navigator.of(context).pushNamed(AppRouter.gameSetupPage, arguments: "capitals");
                         },
-                        child: const Text('Play', style: TextStyle(fontSize: 30))
+                        child: const Text('Play Capital map', style: TextStyle(fontSize: 30))
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                child: Column(
+                  children: <Widget>[
+                    const Icon(Icons.map_outlined, size: 80),
+                    TextButton(
+                        onPressed: (){
+                          Navigator.of(context).pushNamed(AppRouter.gameSetupPage, arguments: "flags");
+                        },
+                        child: const Text('Play Country flag', style: TextStyle(fontSize: 30))
                     )
                   ],
                 ),
