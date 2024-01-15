@@ -28,7 +28,13 @@ L'application comporte deux jeux axés sur la géographie pour s'amuser et se pe
 Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien]([https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo](https://restcountries.com)). Après l'avoir prise en main grâce à quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations. Les informations qui nous importaient étaient le nom des pays, leur capitale ainsi que leur drapeau. Le nom et la capitale nous sont utiles pour le jeu Capitales et le nom et le drapeau pour le jeu Drapeaux.
 
 ## Jeu Capitales
-
+Dans ce jeu le but est de trouver la capitale des pays afficher sur une carte. Chaque pays est marquée d'un icone cliquable qui, une fois cliqué, ouvre une boite de dialogue permettant d'entrer notre réponse et un bouton 'Submit' pour la valider. Ensuite, si la réponse est correcte un message de réussite vert apparaît pendant quelques secondes puis la boite disparaît afin de continuer le jeu. En revanche, si la réponse soumise est fausse un message d'erreur rouge apparaît pendant quelques secondes et la boite de dialogue reste ouverte, pour la fermer il faut appuyer sur le bouton 'Cancel'. Il y a la possibilité de mettre le jeu en pause en cliquant sur l'icone menu dans l'appBar; cette action ouvrant une sidebar qui couvre partiellement la zone de jeu avec 4 zones cliquables correspondant aux 4 actions possibles à savoir : 
+   - 'Resume' pour continuer de jouer et relancer le chronomètre
+   - 'Restart' pour recommencer le jeu à zéro, redémmarer le chrnomètre et réinitialiser le score à 0
+   - 'Quit' pour quitter la page de jeu et revenir à la page de sélection de la zone géographique.
+   - 'Done' pour finir la partir, enregistrer le temps et le score actuel
+Au bout de 15 minutes de jeu une boite d'alerte apparait pour indiquer au joueur que le temps est écoulé, 3 choix s'offrent alors à lui : il peut soit rejouer une partie, soit quitter le jeu et revenir à la page de sélection de la zone géographique ou encore accéder à la page de tableaux des scores.
+Pour plus de compréhension voir [Captures d'écran](#capture-decran-jeu-capitals).
 
 
 ## Jeu Drapeaux
@@ -45,14 +51,20 @@ Description du contenu du dossier lib.
 
 ### models
 
-Description du contenu du dossier models.
+Ce répertoire contient les différents modèles utilisés lors de ce projet : 
+- 'Country' : modèle d'un pays prenant comme argument un nom (String), une capitale (String), une position(LatLng) et un drapeau (String) 
+- 'Player' : modèle d'un joueur prenant comme argument un username (String), un scoreCapitals (int), un scoreFlags (int), un timeCapitals (String), un timeFlags (String), un hasHighscoreCapitals (bool) et un hasHighscoreFlags (bool)
+
+Pour une meilleure compréhension voir [Captures d'écran](#capture-decran-models)
 
 ### blocs
 
-Description du contenu du dossier blocs.
+Ce repertoire contient le fichier '**player_cubit**' qui est le bloc cubit de notre application. Il contient la liste des joueurs ainsi que des méthodes pour ordonner les joueurs selon leurs scores et pour en ajouter. Un bloc cubit permet d'avoir accès aux données qu'il contient depuis toutes les pages comprises dans le BlocBuilder du bloc cubit, évitant ainsi de devoir envoyer les informations d'une page à l'autre, devoir raffraîchir et tout autre actions énergivores et faisant perdre du temps. Ici, lorsque les éléments compris dans le cubit sont mis à jour il le sont pour toutes les pages qui y ont accès.
+
+Pour plus d'informations voir [flutter_bloc]([https://pub.dev/packages/flutter_bloc]). 
 
 ## Difficultés Rencontrées
-
+Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas 
 Description des difficultés que vous avez rencontrées lors du développement et des solutions que vous avez trouvées.
 
 ## Captures d'écran
