@@ -77,7 +77,7 @@ Ensuite nous avions juste à créer des models country avec les informations sou
 
 ## Difficultés Rencontrées
 Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas 
-Description des difficultés que vous avez rencontrées lors du développement et des solutions que vous avez trouvées.
+Petit problème d'IDE à la fin du projet qui nous a bloqué et nous a empêché de résoudre les derniers bugs.
 
 ## Captures d'écran
 
