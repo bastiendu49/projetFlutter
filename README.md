@@ -19,10 +19,8 @@ Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une applicat
    - [router](#router)
 - [Difficultés Rencontrées](#difficultés-rencontrées)
 - [Captures d'écran](#captures-décran)
-   - [Jeu Capitals](#capture-decran-jeu-capitals)
-   - []()
 - [Versions](#versions)
-- [Informations](#infos)
+- [Informations](#informations)
 
 ## Présentation de l'Application
 
