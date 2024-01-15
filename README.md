@@ -76,7 +76,7 @@ Ce répertoire contient le repository pour accéder aux différentes information
 Ensuite nous avions juste à créer des models country avec les informations souhaité prises dans le Json fourni par l'API
 
 ## Difficultés Rencontrées
-Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas 
+Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas.
 Petit problème d'IDE à la fin du projet qui nous a bloqué et nous a empêché de résoudre les derniers bugs.
 
 ## Captures d'écran
