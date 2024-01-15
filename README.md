@@ -2,8 +2,25 @@
 
 Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une application de jeu de géographie.
 
-#Table des matières 
+## Table des matières
 
+- [Présentation de l'Application](#présentation-de-lapplication)
+- [Jeu Capitales](#jeu-capitales)
+- [Jeu Drapeaux](#jeu-drapeaux)
+- [Structure du Projet](#structure-du-projet)
+   - [lib/](#lib)
+   - [models](#models)
+   - [blocs](#blocs)
+- [Difficultés Rencontrées](#difficultés-rencontrées)
+- [Captures d'écran](#captures-décran)
+- [Fonctionnalités](#fonctionnalités)
+- [Installation](#installation)
+- [Utilisation](#utilisation)
+- [Dépendances](#dépendances)
+- [Contributions](#contributions)
+- [Licence](#licence)
+
+## Présentation de l'Application
 
 ## Getting Started
 
