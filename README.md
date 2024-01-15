@@ -10,8 +10,13 @@ Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une applicat
 - [Jeu Drapeaux](#jeu-drapeaux)
 - [Structure du Projet](#structure-du-projet)
    - [lib/](#lib)
-   - [models](#models)
-   - [blocs](#blocs)
+   - [-- blocs](#blocs)
+   - [-- models](#models)
+   - [-- repository](#repository)
+   - [-- ui.screens](#ui.screens)
+   - [-- widgets](#widgets)
+   - [main](#main)
+   - [router](#router)
 - [Difficultés Rencontrées](#difficultés-rencontrées)
 - [Captures d'écran](#captures-décran)
 - [Fonctionnalités](#fonctionnalités)
@@ -25,7 +30,7 @@ Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une applicat
 L'application comporte deux jeux axés sur la géographie pour s'amuser et se perfectionner dans ce domaine. Choisissez entre trouver les capitales des pays indiqués ou trouver les pays correspondant aux drapeaux. Avec une interfae utilisateur 
 ## API utilisée
 
-Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien]([https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo](https://restcountries.com)). Après l'avoir prise en main grâce à quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations. Les informations qui nous importaient étaient le nom des pays, leur capitale et leur position en LatLong ainsi que leur drapeau. Le nom la capitale et sa position nous sont utiles pour le jeu Capitales et le nom et le drapeau pour le jeu Drapeaux.
+Pour la réalisation de ce projet nous avons utiliser l'API restcountries disponible via ce [lien]([https://restcountries.com/v3.1/all?fields=name,capital,capitalInfo](https://restcountries.com)). Après l'avoir prise en main grâce à quelques requêtes nous avons modifié ces requêtes pour orienter nos demandes et obtenir seulement les informations nécessaires car cette API nous renvoyait un nombre impressionant d'informations. Les informations qui nous importaient étaient le nom des pays, leur capitale ainsi que leur drapeau. Le nom et la capitale nous sont utiles pour le jeu Capitales et le nom et le drapeau pour le jeu Drapeaux.
 
 ## Jeu Capitales
 Dans ce jeu le but est de trouver la capitale des pays afficher sur une carte. Chaque pays est marquée d'un icone cliquable qui, une fois cliqué, ouvre une boite de dialogue permettant d'entrer notre réponse et un bouton 'Submit' pour la valider. 
@@ -40,7 +45,7 @@ Pour plus de compréhension voir [Captures d'écran](#capture-decran-jeu-capital
 
 
 ## Jeu Drapeaux
-
+Ayant assez rapidement clotûré l'implémentation du jeu Capitals nous avons pensé ajouter un mode de jeu avec les drapeaux. Nous avons donc développé ce nouveau jeu de la récupération des informations au niveau de l'API jusqu'à un bon affichage qui permette également d'entrer la réponse 
 Dans ce jeu le but est de trouver le pays associé à son drapeau. Chaque drapeau est affiché accompagné d'un champs de texte pour rentrer le nom du pays et d'un bouton valider.
 Le joueur peut sélectionner son pseudo et le zone géographique sur laquelle il souhaite jouer(Europe, Asie, Afrique, Amérique, Monde, Océanie).
 Le but final de ce jeu est d'avoir un message de validation ou d'erreur quand on valide un nom de pays et la même sidebar que pour le jeu des capitales mais nous n'avons pas réussi ces parties là.
@@ -48,11 +53,17 @@ Pour le moment nous ne pouvons pas rentrer d'information dans les input et la va
 
 ## Structure du Projet
 
-Explication de la structure du projet.
+Il nous a semblé assez intuitif de séparer les différents éléments de notre projet, pour une meilleure lisibilité, une plus simple pérennisation et une meilleure manière de faire.
 
 ### lib/
 
-Description du contenu du dossier lib.
+Voici le repertoire lib similaire au dossier src dans un projet Java, c'est dans ce dossier que nous avons implété l'ensemble de notre application et de ses fonctionnalités dont voici une explication : 
+
+### blocs
+
+Ce repertoire contient le fichier '*player_cubit*' qui est le bloc cubit de notre application. Il contient la liste des joueurs ainsi que des méthodes pour ordonner les joueurs selon leurs scores et pour en ajouter. Un bloc cubit permet d'avoir accès aux données qu'il contient depuis toutes les pages comprises dans le BlocBuilder du bloc cubit, évitant ainsi de devoir envoyer les informations d'une page à l'autre, devoir raffraîchir et tout autre actions énergivores et faisant perdre du temps. Ici, lorsque les éléments compris dans le cubit sont mis à jour il le sont pour toutes les pages qui y ont accès.
+
+Pour plus d'informations voir [flutter_bloc]([https://pub.dev/packages/flutter_bloc]). 
 
 ### models
 
@@ -62,11 +73,9 @@ Ce répertoire contient les différents modèles utilisés lors de ce projet :
 
 Pour une meilleure compréhension voir [Captures d'écran](#capture-decran-models)
 
-### blocs
+### repository
+POUR BASTIEN
 
-Ce repertoire contient le fichier '**player_cubit**' qui est le bloc cubit de notre application. Il contient la liste des joueurs ainsi que des méthodes pour ordonner les joueurs selon leurs scores et pour en ajouter. Un bloc cubit permet d'avoir accès aux données qu'il contient depuis toutes les pages comprises dans le BlocBuilder du bloc cubit, évitant ainsi de devoir envoyer les informations d'une page à l'autre, devoir raffraîchir et tout autre actions énergivores et faisant perdre du temps. Ici, lorsque les éléments compris dans le cubit sont mis à jour il le sont pour toutes les pages qui y ont accès.
-
-Pour plus d'informations voir [flutter_bloc]([https://pub.dev/packages/flutter_bloc]). 
 
 ## Difficultés Rencontrées
 Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas 
