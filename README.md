@@ -41,8 +41,8 @@ Ensuite, si la réponse est correcte un message de réussite vert apparaît pend
    - **'Quit'** pour quitter la page de jeu et revenir à la page de sélection de la zone géographique.
    - **'Done'** pour finir la partir, enregistrer le temps et le score actuel
 Au bout de 15 minutes de jeu une boite d'alerte apparait pour indiquer au joueur que le temps est écoulé, 3 choix s'offrent alors à lui : il peut soit rejouer une partie, soit quitter le jeu et revenir à la page de sélection de la zone géographique ou encore accéder à la page de tableaux des scores.
-Pour plus de compréhension voir [Captures d'écran](#capture-decran-jeu-capitals).
 
+Pour plus de compréhension voir [Captures d'écran](#capture-décran).
 
 ## Jeu Drapeaux
 
@@ -51,6 +51,8 @@ Dans ce jeu le but est de trouver le pays associé à son drapeau. Chaque drapea
 Le joueur peut sélectionner son pseudo et le zone géographique sur laquelle il souhaite jouer(Europe, Asie, Afrique, Amérique, Monde, Océanie).
 Le but final de ce jeu est d'avoir un message de validation ou d'erreur quand on valide un nom de pays et la même sidebar que pour le jeu des capitales mais nous n'avons pas réussi ces parties là.
 Pour le moment nous ne pouvons pas rentrer d'information dans les input et la validation ne peut donc pas être effectué, cela est dû à un manque de temps et un problème d'IDE.
+
+Pour plus de compréhension voir [Captures d'écran](#capture-décran).
 
 ## Structure du Projet
 
@@ -72,7 +74,7 @@ Ce répertoire contient les différents modèles utilisés lors de ce projet :
 - 'Country' : modèle d'un pays prenant comme argument un nom (String), une capitale (String), une position(LatLng) et un drapeau (String) 
 - 'Player' : modèle d'un joueur prenant comme argument un username (String), un scoreCapitals (int), un scoreFlags (int), un timeCapitals (String), un timeFlags (String), un hasHighscoreCapitals (bool) et un hasHighscoreFlags (bool)
 
-Pour une meilleure compréhension voir [Captures d'écran](#capture-decran-models)
+Pour une meilleure compréhension voir [Captures d'écran](#capture-décran)
 
 ### repository
 
@@ -109,8 +111,11 @@ Par conséquent, nous n'avons pas rencontrés de réel problème durant le proje
 Petit problème d'IDE à la fin du projet qui nous a bloqué et nous a empêché de résoudre les derniers bugs.
 
 ## Captures d'écran
+Voici des captures d'écran de l'application et du code pour mieux comprendre ce qui a été expliqué auparavant.
 
-### Jeu Capitals
+Jeu Capitals :
+
+
 
 
 ## Versions
