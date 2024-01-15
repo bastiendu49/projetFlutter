@@ -21,17 +21,56 @@ class PlayerCubit extends Cubit<List<Player>> {
     _currentUsername = username;
   }
 
+  List<Player> playersCapitals = [];
+  List<Player> playersFlags = [];
 
-  Future<void> loadPlayers() async {
-    // Chargement initial des joueurs
+
+  Future<void> loadPlayers(String gameMode) async {
+    if (gameMode == 'Capitals') {
+      playersCapitals = [
+        Player(username: 'Etienne', scoreCapitals: 56850, timeCapitals: '03:48', hasHighscoreCapitals: true),
+        Player(username: 'Bastien', scoreCapitals: 52750, timeCapitals: '04:17', hasHighscoreCapitals: false)
+      ];
+
+      playersCapitals.sort((a, b) {
+        if (a.scoreCapitals != null && b.scoreCapitals != null) {
+          return b.scoreCapitals!.compareTo(a.scoreCapitals!);
+        } else {
+          return 0;
+        }
+      });
+      emit(playersCapitals);
+
+    } else {
+      playersFlags = [
+        Player(username: 'Etienne', scoreFlags: 9500, timeFlags: '05:43', hasHighscoreFlags: false),
+        Player(username: 'Bastien', scoreFlags: 9800, timeFlags: '04:51', hasHighscoreFlags: true)
+      ];
+
+      playersFlags.sort((a, b) {
+        if (a.scoreFlags != null && b.scoreFlags != null) {
+          return b.scoreFlags!.compareTo(a.scoreFlags!);
+        } else {
+          return 0;
+        }
+      });
+
+      emit(playersFlags);
+    }
+
+
+
+  }
+/*
+  Future<void> loadPlayersFlags() async {
     List<Player> players = [
-      Player(username: 'Etienne', score: 56850, time: '03:48', hasHighscore: true),
-      Player(username: 'Bastien', score: 52750, time: '04:17', hasHighscore: false)
+      Player(username: 'Etienne', scoreFlags: 9500, timeFlags: '05:43', hasHighscoreFlags: false),
+      Player(username: 'Bastien', scoreFlags: 9800, timeFlags: '04:51', hasHighscoreFlags: true)
     ];
 
     players.sort((a, b) {
-      if (a.score != null && b.score != null) {
-        return b.score!.compareTo(a.score!);
+      if (a.scoreFlags != null && b.scoreFlags != null) {
+        return b.scoreFlags!.compareTo(a.scoreFlags!);
       } else {
         return 0;
       }
@@ -39,13 +78,30 @@ class PlayerCubit extends Cubit<List<Player>> {
 
     emit(players);
   }
+  */
 
-  void addPlayer(Player player) {
+  void addPlayerCapitals(Player player) {
+    print('Adding player to capitals leaderboard: $player');
     List<Player> updatedPlayers = [...state, player];
 
     updatedPlayers.sort((a, b) {
-      if (a.score != null && b.score != null) {
-        return b.score!.compareTo(a.score!);
+      if (a.scoreCapitals != null && b.scoreCapitals != null) {
+        return b.scoreCapitals!.compareTo(a.scoreCapitals!);
+      } else {
+        return 0;
+      }
+    });
+
+    emit(updatedPlayers);
+    print(updatedPlayers.length);
+  }
+
+  void addPlayerFlags(Player player) {
+    List<Player> updatedPlayers = [...state, player];
+
+    updatedPlayers.sort((a, b) {
+      if (a.scoreFlags != null && b.scoreFlags != null) {
+        return b.scoreFlags!.compareTo(a.scoreFlags!);
       } else {
         return 0;
       }

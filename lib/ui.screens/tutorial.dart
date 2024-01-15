@@ -19,22 +19,7 @@ class Tutorial extends StatelessWidget {
       body: const SingleChildScrollView(
         child: Column(
           children: <Widget> [
-            Center(child: Text('Step 1 : Enter a username ', style: TextStyle(fontSize: 20))),
-            Divider(),
-            SizedBox(height: 100, child: Image(image: AssetImage('assets/pictures/username.png'))),
-            Divider(),
-            Center(child: Text('Step 2 : Select a region ', style: TextStyle(fontSize: 20))),
-            Divider(),
-            SizedBox(height: 300,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 280, child: Image(image: AssetImage('assets/pictures/regions_list.png'))),
-                  Text('Tap on the region you want to play in.')
-                ],
-              ),
-            ),
-            Divider(),
-            Center(child: Text('Step 3 : Select a game mode ', style: TextStyle(fontSize: 20))),
+            Center(child: Text('Step 1 : Select a game mode ', style: TextStyle(fontSize: 20))),
             Divider(),
             SizedBox(height: 200,
               child: Column(
@@ -45,7 +30,22 @@ class Tutorial extends StatelessWidget {
               ),
             ),
             Divider(),
-            Center(child: Text('Step 4 : How to play ? ', style: TextStyle(fontSize: 20))),
+            Center(child: Text('Step 2 : Enter a username ', style: TextStyle(fontSize: 20))),
+            Divider(),
+            SizedBox(height: 100, child: Image(image: AssetImage('assets/pictures/username.png'))),
+            Divider(),
+            Center(child: Text('Step 3 : Select a region ', style: TextStyle(fontSize: 20))),
+            Divider(),
+            SizedBox(height: 300,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 280, child: Image(image: AssetImage('assets/pictures/regions_list.png'))),
+                  Text('Tap on the region you want to play in.')
+                ],
+              ),
+            ),
+            Divider(),
+            Center(child: Text('Capitals Game : How to play ? ', style: TextStyle(fontSize: 20))),
             Divider(),
             SizedBox(height: 2000,
               child: Column(
