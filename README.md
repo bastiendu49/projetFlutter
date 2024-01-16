@@ -1,6 +1,6 @@
 # jeu_geo
 
-Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une application de jeu de géographie.
+Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une application de jeux de géographie.
 
 ## Table des matières
 
@@ -24,7 +24,7 @@ Ce projet Flutter réalisé dans le cadre du projet de fin d'UE est une applicat
 
 ## Présentation de l'Application
 
-L'application comporte deux jeux axés sur la géographie pour s'amuser et se perfectionner dans ce domaine. Choisissez entre trouver les capitales des pays indiqués ou trouver les pays correspondant aux drapeaux. Avec une interfae utilisateur 
+L'application comporte deux jeux axés sur la géographie pour s'amuser et se perfectionner dans ce domaine. Choisissez entre trouver les capitales des pays indiqués ou trouver les pays correspondant aux drapeaux. Avec une interface utilisateur claire et simple, il est assez aisé de se balader et d'utiliser notre application; une partie tutoriel est également inclus pour expliquer les procédures à effectuer.
 
 ## API utilisée
 
@@ -59,11 +59,11 @@ Il nous a semblé assez intuitif de séparer les différents éléments de notre
 
 ### lib/
 
-Voici le repertoire lib similaire au dossier src dans un projet Java, c'est dans ce dossier que nous avons implété l'ensemble de notre application et de ses fonctionnalités dont voici une explication : 
+Voici le repertoire lib similaire au dossier src dans un projet Java, c'est dans ce dossier que nous avons implémenté l'ensemble de notre application et de ses fonctionnalités dont voici une explication : 
 
 ### blocs
 
-Ce repertoire contient le fichier '*player_cubit*' qui est le bloc cubit de notre application. Il contient la liste des joueurs ainsi que des méthodes pour ordonner les joueurs selon leurs scores et pour en ajouter. Un bloc cubit permet d'avoir accès aux données qu'il contient depuis toutes les pages comprises dans le BlocBuilder du bloc cubit, évitant ainsi de devoir envoyer les informations d'une page à l'autre, devoir raffraîchir et tout autre actions énergivores et faisant perdre du temps. Ici, lorsque les éléments compris dans le cubit sont mis à jour il le sont pour toutes les pages qui y ont accès.
+Ce repertoire contient le fichier '*player_cubit*' qui est le bloc cubit de notre application. Il contient la liste des joueurs ainsi que des méthodes pour ordonner les joueurs selon leurs scores et pour en ajouter. Un bloc cubit permet d'avoir accès aux données qu'il contient depuis toutes les pages comprises dans le BlocBuilder du bloc cubit, évitant ainsi de devoir envoyer les informations d'une page à l'autre, devoir raffraîchir et tout autre actions énergivores et faisant perdre du temps. Ici, lorsque les éléments compris dans le cubit sont mis à jour ils le sont pour toutes les pages qui y ont accès.
 
 Pour plus d'informations voir [flutter_bloc]([https://pub.dev/packages/flutter_bloc]). 
 
@@ -86,8 +86,8 @@ Voici le dossier contenant l'ensemble des pages de notre application :
    - **Home** comportant 2 destinations; **GameLeadPage** qui permet de choisir soit un des deux modes de jeu soit la page des leaderboards et **Tutorial** qui contient une brève explication de l'application et comment s'en servir
    - **GameSetup** permettant de choisir son pseudo et la zone géographique dans laquelle nous souhaitons jouer
    - **Leaderboard** contient 2 destinations; l'une pour afficher le tableau de score du jeu Capitals et la seconde pour le jeu Flags
-   - **GameCapitals** permet de jouer au jeu des capitales et donc comporte une carte de la zone géographique sélectionnée ainsi qu'un icone sutr tous les pays de cette zone
-   - **GameFlags** permet de jouer au jeu des drapeaux et donc comprte une liste de l'ensemble des drapeaux des pays de la zone géographique sélectionnée
+   - **GameCapitals** permet de jouer au jeu des capitales et donc comporte une carte de la zone géographique sélectionnée ainsi qu'un icone sur tous les pays de cette zone
+   - **GameFlags** permet de jouer au jeu des drapeaux et donc comporte une liste de l'ensemble des drapeaux des pays de la zone géographique sélectionnée
 
 ### widgets
 
@@ -99,13 +99,13 @@ C'est le code qui est lancé au moment du flutter run. Il contient le chargement
 
 ### router 
 
-Ce fichier contient l'ensemble des routes utiles au bon fonctionnement de notre application. En effet, il nous a paru être une meilleure façon de faire et une manière plus lisible de rassembler dans un même fichier.
+Ce fichier contient l'ensemble des routes utiles au bon fonctionnement de notre application. En effet, il nous a paru être une meilleure façon de faire et une manière plus lisible de rassembler toutes les routes dans un même fichier.
 
 Voici un visuel pour plus de clarté [Captures d'écran](#captures-décran)
 
 ## Difficultés Rencontrées
 
-Le cours étant bien structuré, les TPs complets et bien expliqués pas à pas.
+Le cours était bien structuré, les TPs complets et bien expliqués pas à pas.
 Par conséquent, nous n'avons pas rencontrés de réel problème durant le projet hormi en fin de celui ci lors de la validation des réponses pour le jeu des drapeaux.
 Petit problème d'IDE à la fin du projet qui nous a bloqué et nous a empêché de résoudre les derniers bugs.
 
@@ -127,7 +127,7 @@ Pour ce projet voici les versions que nous avons utilisés :
    - Dart : 3.1.5
 
 ## Informations
-Sur la branche etienne le jeu capitals est fonctionnelle.
+Sur la branche etienne le jeu capitals est fonctionnel.
 Seuls les leaderboards ne sont pas correctement gérés, un nouveau joueur est automatiquement ajouté aux deux leaderboards peu importe le jeu auquel il a joué.
 Sur la branche master l'ensemble des deux jeux sont implémentés même si le jeu des drapeaux n'est pas 100% fonctionnel.
 Certains éléments comme le fait de ne pas pouvoir zoomer ne sont pas forcément sur la branche master.
